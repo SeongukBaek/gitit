@@ -1,0 +1,48 @@
+
+#include "Altino.h"
+int main()
+{
+SensorData data1;
+Open(szPort);
+while(1)
+{
+data1=Sensor(1);
+ if(data1.IRSensor[0] > 0 && data1.IRSensor[1] > 0 && data1.IRSensor[2]>0)
+{
+Go(-300,-300);
+Steering(3);
+}
+else if(data1.IRSensor[0]>0 && data1.IRSensor[1]>0)
+{
+Go(-300,-300);
+Steering(1);
+}
+else if(data1.IRSensor[1]>0 && data1.IRSensor[2]>0)
+{
+Go(-300,-300);
+Steering(3);
+}
+else if(data1.IRSensor[0]>0)
+{
+Go(-300,-300);
+Steering(1);
+}
+else if(data1.IRSensor[1]>0)
+{
+Go(-300,-300);
+Steering(1);
+}
+else if(data1.IRSensor[2]>0)
+{
+Go(-300,-300);
+Steering(3);
+}
+else
+{
+Go(300,300);
+Steering(2);
+}
+}
+Close();
+return 0;
+}
