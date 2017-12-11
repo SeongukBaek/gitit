@@ -8,6 +8,7 @@
 
 #include <stdbool.h>
 
+
 #include <string.h>
 
 #include <math.h>
@@ -768,6 +769,7 @@ int main()
 		printf("%d %d %d %d %d\n", data1.IRSensor[0], data1.IRSensor[1], data1.IRSensor[2], data1.IRSensor[3], data1.IRSensor[4]);
 
 		if (data1.CDSSensor < 200)
+
 		{
 			Go(0, 0);
 			Close();
@@ -780,7 +782,7 @@ int main()
 		{
 			Go(300, 300);
 			Steering(2);
-			delay(800);//°è¼Ó Á÷Áø
+			delay(800);//ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			turtle_forward(15);
 		}
 		else if (data1.IRSensor[1] > 250 || data1.IRSensor[2]>170)
@@ -795,7 +797,7 @@ int main()
 			delay(800);
 			turtle_turn_left(20);
 			turtle_forward(50);
-		}//¿ÞÂÊ
+		}//ï¿½ï¿½ï¿½ï¿½
 
 		else if (data1.IRSensor[0] < 25 && data1.IRSensor[1] < 25 && data1.IRSensor[2] < 25 && data1.IRSensor[3] < 25 && data1.IRSensor[4] < 25)
 		{
@@ -809,24 +811,28 @@ int main()
 			delay(800);
 			turtle_turn_right(20);
 			turtle_forward(50);
-		}//¿À¸¥ÂÊ
+		}//ï¿½ï¿½ï¿½ï¿½ï¿½
 
 		else if (data1.IRSensor[0] < 25 && data1.IRSensor[1] < 25 && data1.IRSensor[2] < 25 && data1.IRSensor[3]>200 && data1.IRSensor[4] < 25)
 		{
 			Go(300, 300);
 			Steering(2);
-			delay(800);//°è¼Ó Á÷Áø
+			delay(800);//ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			turtle_forward(15);
+
 		}
 
 		else
 		{
 			Go(300, 300);
 			Steering(2);
-			delay(800);//°è¼Ó Á÷Áø
+			delay(800);//ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			turtle_forward(15);
+
 		}
 	}
+
+
 
 
 
