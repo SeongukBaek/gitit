@@ -825,4 +825,195 @@ int main()
 
 
 
+
+
+   Open(szPort);
+   SensorData data1;
+
+   Go(0, 0);
+
+   while (1)
+   {
+      data1 = Sensor(1);
+      printf("%d %d %d %d %d 왼쪽:%d 오른쪽:%d \n", data1.IRSensor[0], data1.IRSensor[1], data1.IRSensor[2], data1.IRSensor[3], data1.IRSensor[4],data1.TorqueSensor[1],data1.TorqueSensor[0]);
+
+
+      if (data1.IRSensor[3] < 125)//오른쪽
+      {
+         Go(-300, -300);
+         Steering(2);
+         delay(800);
+         turtle_backward(30);
+
+         Go(500, 500);
+         Steering(3);
+         delay(800);
+         turtle_turn_right(20);
+         turtle_forward(50);
+         //turtle_turn_left(30);
+
+      }
+      /*
+      if ((data1.IRSensor[1] > 400))
+      {
+         turtle_backup();
+         turtle_pen_up();
+         
+      }
+      turtle_restore();
+      turtle_pen_down();
+      */
+
+
+
+      if ((data1.IRSensor[0] > 265) && (data1.IRSensor[1] > 25) && (data1.IRSensor[2] > 25)) //앞으로 막혔을때
+      {
+         if ((data1.IRSensor[4] > 15) && (data1.IRSensor[3] > 15))
+         {
+            Go(0, 0);
+            Close();
+
+            turtle_save_bmp("output.bmp");  // save the turtle drawing
+
+            return EXIT_SUCCESS;
+
+            return 0;
+
+         }
+
+         else if (data1.IRSensor[4] > data1.IRSensor[3]) //왼쪽으로 공간잇어서 왼쪽으로 돌아야될때
+         {
+            Go(-300, -300);
+            Steering(2);
+            delay(800);//바퀴오른쪽으로 돌리고 후진
+
+            turtle_backward(30);
+
+            Go(400, 400);
+            Steering(1);
+            delay(800);//바퀴 왼쪽으로 돌리고 전진
+            turtle_turn_left(20);
+            turtle_forward(50);
+            //turtle_turn_right(30);
+
+
+            Go(500, 500);
+            Steering(1);
+            delay(800);//바퀴 왼쪽으로 돌리고 전진
+
+         }
+         if (data1.IRSensor[4] < data1.IRSensor[3])//오른쪽으로 공간잇어서 오른쪽으로 돌아야될때
+         {
+            Go(-300, -300);
+            Steering(2);
+            delay(800);
+
+            turtle_backward(30);
+
+            Go(400, 400);
+            Steering(3);
+            delay(800);
+            turtle_turn_right(20);
+            turtle_forward(50);
+            //turtle_turn_left(30);
+
+            Go(500, 500);
+            Steering(3);
+            delay(800);
+
+         }
+
+      }
+
+      else if (data1.IRSensor[0] > 265 && data1.IRSensor[1] > 25) //오른쪽으로 사선을 마주쳐서 오른쪽으로 돌때
+      {
+         Go(-300, -300);
+         Steering(2);
+         delay(800);
+
+         turtle_backward(30);
+
+         Go(400, 400);
+         Steering(3);
+         delay(800);
+         turtle_turn_right(20);
+         turtle_forward(50);
+         //turtle_turn_left(30);
+
+
+         Go(500, 500);
+         Steering(3);
+         delay(800);
+ 
+      }
+      else if (data1.IRSensor[1] > 25 && data1.IRSensor[2] > 25) //왼쪽으로 사선을 마주쳐서 왼쪽으로 돌때
+      {
+         Go(-300, -300);
+         Steering(2);
+         delay(800);
+ 
+         turtle_backward(30);
+
+         Go(400, 400);
+         Steering(1);
+         delay(800);
+         turtle_turn_left(20);
+         turtle_forward(50);
+         //turtle_turn_right(30);
+      }
+
+      
+      
+      
+
+      else
+      {
+         Go(300, 300); Steering(2);//계속 직진
+         turtle_forward(20);
+      }
+   }
+   
+
+
+   Close();
+
+
+
+   turtle_save_bmp("output.bmp");  // save the turtle drawing
+
+   return EXIT_SUCCESS;
+
+
+
+
+         Go(500, 500);
+         Steering(1);
+         delay(800);
+
+      }
+
+      else if (data1.IRSensor[3] < 25)//오른쪽
+      {
+         Go(-300, -300);
+         Steering(2);
+         delay(800);
+
+         Go(500, 500);
+         Steering(3);
+         delay(800);
+      }
+
+      else
+      {
+         Go(500, 500); Steering(2);//계속 직진
+      }
+   }
+
+
+
+   Close();
+ 
+
+   //return 0;
+
 }
