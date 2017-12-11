@@ -758,9 +758,10 @@ int main()
    while (1)
    {
       data1 = Sensor(1);
-      printf("%d %d %d %d %d ¿ŞÂÊ:%d ¿À¸¥ÂÊ:%d \n", data1.IRSensor[0], data1.IRSensor[1], data1.IRSensor[2], data1.IRSensor[3], data1.IRSensor[4],data1.TorqueSensor[1],data1.TorqueSensor[0]);
+      printf("%d %d %d %d %d ì™¼ìª½:%d ì˜¤ë¥¸ìª½:%d \n", data1.IRSensor[0], data1.IRSensor[1], data1.IRSensor[2], data1.IRSensor[3], data1.IRSensor[4],data1.TorqueSensor[1],data1.TorqueSensor[0]);
 
-      if (data1.IRSensor[3] < 125)//¿À¸¥ÂÊ
+
+      if (data1.IRSensor[3] < 125)//ì˜¤ë¥¸ìª½
       {
          Go(-300, -300);
          Steering(2);
@@ -785,36 +786,51 @@ int main()
       turtle_restore();
       turtle_pen_down();
       */
-      if ((data1.IRSensor[0] > 265) && (data1.IRSensor[1] > 25) && (data1.IRSensor[2] > 25)) //¾ÕÀ¸·Î ¸·ÇûÀ»¶§
+
+
+
+      if ((data1.IRSensor[0] > 265) && (data1.IRSensor[1] > 25) && (data1.IRSensor[2] > 25)) //ì•ìœ¼ë¡œ ë§‰í˜”ì„ë•Œ
       {
          if ((data1.IRSensor[4] > 15) && (data1.IRSensor[3] > 15))
          {
             Go(0, 0);
             Close();
+
             turtle_save_bmp("output.bmp");  // save the turtle drawing
 
             return EXIT_SUCCESS;
+
+            return 0;
+
          }
 
-         else if (data1.IRSensor[4] > data1.IRSensor[3]) //¿ŞÂÊÀ¸·Î °ø°£ÀÕ¾î¼­ ¿ŞÂÊÀ¸·Î µ¹¾Æ¾ßµÉ¶§
+         else if (data1.IRSensor[4] > data1.IRSensor[3]) //ì™¼ìª½ìœ¼ë¡œ ê³µê°„ì‡ì–´ì„œ ì™¼ìª½ìœ¼ë¡œ ëŒì•„ì•¼ë ë•Œ
          {
             Go(-300, -300);
             Steering(2);
-            delay(800);//¹ÙÄû¿À¸¥ÂÊÀ¸·Î µ¹¸®°í ÈÄÁø
+            delay(800);//ë°”í€´ì˜¤ë¥¸ìª½ìœ¼ë¡œ ëŒë¦¬ê³  í›„ì§„
+
             turtle_backward(30);
 
             Go(400, 400);
             Steering(1);
-            delay(800);//¹ÙÄû ¿ŞÂÊÀ¸·Î µ¹¸®°í ÀüÁø
+            delay(800);//ë°”í€´ ì™¼ìª½ìœ¼ë¡œ ëŒë¦¬ê³  ì „ì§„
             turtle_turn_left(20);
             turtle_forward(50);
             //turtle_turn_right(30);
+
+
+            Go(500, 500);
+            Steering(1);
+            delay(800);//ë°”í€´ ì™¼ìª½ìœ¼ë¡œ ëŒë¦¬ê³  ì „ì§„
+
          }
-         if (data1.IRSensor[4] < data1.IRSensor[3])//¿À¸¥ÂÊÀ¸·Î °ø°£ÀÕ¾î¼­ ¿À¸¥ÂÊÀ¸·Î µ¹¾Æ¾ßµÉ¶§
+         if (data1.IRSensor[4] < data1.IRSensor[3])//ì˜¤ë¥¸ìª½ìœ¼ë¡œ ê³µê°„ì‡ì–´ì„œ ì˜¤ë¥¸ìª½ìœ¼ë¡œ ëŒì•„ì•¼ë ë•Œ
          {
             Go(-300, -300);
             Steering(2);
             delay(800);
+
             turtle_backward(30);
 
             Go(400, 400);
@@ -823,15 +839,21 @@ int main()
             turtle_turn_right(20);
             turtle_forward(50);
             //turtle_turn_left(30);
+
+            Go(500, 500);
+            Steering(3);
+            delay(800);
+
          }
 
       }
 
-      else if (data1.IRSensor[0] > 265 && data1.IRSensor[1] > 25) //¿À¸¥ÂÊÀ¸·Î »ç¼±À» ¸¶ÁÖÃÄ¼­ ¿À¸¥ÂÊÀ¸·Î µ¹¶§
+      else if (data1.IRSensor[0] > 265 && data1.IRSensor[1] > 25) //ì˜¤ë¥¸ìª½ìœ¼ë¡œ ì‚¬ì„ ì„ ë§ˆì£¼ì³ì„œ ì˜¤ë¥¸ìª½ìœ¼ë¡œ ëŒë•Œ
       {
          Go(-300, -300);
          Steering(2);
          delay(800);
+
          turtle_backward(30);
 
          Go(400, 400);
@@ -840,12 +862,19 @@ int main()
          turtle_turn_right(20);
          turtle_forward(50);
          //turtle_turn_left(30);
+
+
+         Go(500, 500);
+         Steering(3);
+         delay(800);
+ 
       }
-      else if (data1.IRSensor[1] > 25 && data1.IRSensor[2] > 25) //¿ŞÂÊÀ¸·Î »ç¼±À» ¸¶ÁÖÃÄ¼­ ¿ŞÂÊÀ¸·Î µ¹¶§
+      else if (data1.IRSensor[1] > 25 && data1.IRSensor[2] > 25) //ì™¼ìª½ìœ¼ë¡œ ì‚¬ì„ ì„ ë§ˆì£¼ì³ì„œ ì™¼ìª½ìœ¼ë¡œ ëŒë•Œ
       {
          Go(-300, -300);
          Steering(2);
          delay(800);
+ 
          turtle_backward(30);
 
          Go(400, 400);
@@ -862,7 +891,7 @@ int main()
 
       else
       {
-         Go(300, 300); Steering(2);//°è¼Ó Á÷Áø
+         Go(300, 300); Steering(2);//ê³„ì† ì§ì§„
          turtle_forward(20);
       }
    }
@@ -878,6 +907,35 @@ int main()
    return EXIT_SUCCESS;
 
 
+
+
+         Go(500, 500);
+         Steering(1);
+         delay(800);
+
+      }
+
+      else if (data1.IRSensor[3] < 25)//ì˜¤ë¥¸ìª½
+      {
+         Go(-300, -300);
+         Steering(2);
+         delay(800);
+
+         Go(500, 500);
+         Steering(3);
+         delay(800);
+      }
+
+      else
+      {
+         Go(500, 500); Steering(2);//ê³„ì† ì§ì§„
+      }
+   }
+
+
+
+   Close();
+ 
 
    //return 0;
 }
