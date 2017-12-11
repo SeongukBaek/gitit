@@ -749,6 +749,83 @@ void turtle_save_bmp(const char *filename)
 
 int main()
 {
+	turtle_init(3000, 3000);          // initialize the image to be 600x600
+	Open(szPort);
+	SensorData data1;
+
+	Go(0, 0);
+
+	turtle_turn_left(90);
+
+	while (1)
+	{
+		data1 = Sensor(1);
+		printf("%d %d %d %d %d\n", data1.IRSensor[0], data1.IRSensor[1], data1.IRSensor[2], data1.IRSensor[3], data1.IRSensor[4]);
+
+		if (data1.CDSSensor < 100)
+		{
+			Go(0, 0);
+			Close();
+			turtle_save_bmp("output.bmp");  // save the turtle drawing
+
+			return EXIT_SUCCESS;
+		}
+
+		if (data1.IRSensor[0] == 0 && data1.IRSensor[1] == 0 && data1.IRSensor[2] == 0 && data1.IRSensor[3] == 0 && data1.IRSensor[4] == 0)
+		{
+			Go(400, 400);
+			Steering(2);
+			delay(200);//계속 직진
+			turtle_forward(10);
+		}
+		else if (data1.IRSensor[1] > 250 || data1.IRSensor[2]>250)
+		{
+			Go(-400, -400);
+			Steering(2);
+			delay(400);
+			turtle_backward(15);
+
+			Go(500, 500);
+			Steering(1);
+			delay(400);
+			turtle_turn_left(20);
+			turtle_forward(25);
+		}//왼쪽
+
+		else if (data1.IRSensor[0] < 50 && data1.IRSensor[1] < 50 && data1.IRSensor[2] < 50 && data1.IRSensor[3] < 50 && data1.IRSensor[4] < 50)
+		{
+			Go(-500, -500);
+			Steering(2);
+			delay(600);
+			turtle_backward(15);
+
+			Go(500, 500);
+			Steering(3);
+			delay(400);
+			turtle_turn_right(20);
+			turtle_forward(25);
+		}//오른쪽
+
+		else if (data1.IRSensor[0] < 25 && data1.IRSensor[1] < 25 && data1.IRSensor[2] < 25 && data1.IRSensor[3]>200 && data1.IRSensor[4] < 25)
+		{
+			Go(400, 400);
+			Steering(2);
+			delay(200);//계속 직진
+			turtle_forward(10);
+		}
+
+		else
+		{
+			Go(400, 400);
+			Steering(2);
+			delay(200);//계속 직진
+			turtle_forward(10);
+		}
+	}
+
+
+
+
 
    Open(szPort);
    SensorData data1;
@@ -938,4 +1015,5 @@ int main()
  
 
    //return 0;
+
 }
